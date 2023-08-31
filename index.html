@@ -12,19 +12,27 @@
 </head>
 
 <body>
-    <header class="container mx-auto">
-        <nav class="flex flex-row justify-between items-center my-5">
+    <header class="w-11/12 mx-auto">
+        <nav class="flex flex-col gap-4 md:flex-row lg:flex-row justify-between items-center my-5">
             <img src="image/Logo.png" alt="">
             <button class="btn capitalize">Sort by view</button>
             <a class="btn capitalize bg-red-500 text-white" href="blog.html" target="_blank">Blog</a>
         </nav>
         <hr>
     </header>
-    <main class="container mx-auto">
+    <main class="w-11/12 mx-auto">
         <section>
             <!-- tab div -->
             <div id="tab" class="flex flex-row justify-center items-center gap-4 my-8">
 
+            </div>
+            <!-- Card section -->
+            <div id="card-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                
+            </div>
+            <div id="no-content" class="text-center mt-16 hidden">
+                <img src="image/Icon.png" alt="" class="m-auto">
+                <p class="text-3xl font-bold">Oops!! Sorry, There is no<br> content here</p>
             </div>
         </section>
     </main>
