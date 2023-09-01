@@ -46,8 +46,11 @@ const showCard = async (category_id = 1000) => {
                 <img src="${cardData.authors[0].profile_picture}" class="w-10 h-10 rounded-full" alt="img">
                 <div>
                     <h2 class="card-title">${cardData.title}</h2>
-                    <p>${cardData.authors[0].profile_name}</p>
-                    <p>${cardData.others.views}</p>
+                    <div class="flex flex-row">
+                        <p>${cardData.authors[0].profile_name}</p>
+                        <p>${cardData.authors[0].verified ?'<img src="image/verified.svg"></img>':''}</p>
+                    </div>
+                    <p>${cardData.others.views} views</p>
                 </div>
             </div>
         </div>
