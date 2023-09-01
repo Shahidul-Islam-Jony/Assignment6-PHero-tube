@@ -29,6 +29,7 @@ const showCard = async (category_id = 1000) => {
     // console.log(categoryData);
 
     cardContainer.textContent = '';
+
     const noContent = document.getElementById('no-content');
     if (categoryData.length === 0) {
         noContent.classList.remove('hidden');
@@ -37,18 +38,29 @@ const showCard = async (category_id = 1000) => {
         noContent.classList.add('hidden');
     }
     categoryData.forEach(cardData => {
-        console.log(cardData);
+        // console.log(cardData);
+
+        // Time calculating
+        const time = parseInt(cardData.others.posted_date);
+        const hour = parseInt(time / 3600);
+        // console.log(hour);
+        const min = parseInt((time - (hour * 3600)) / 60);
+        // console.log(min);
+        // creating card
         const card = document.createElement('div');
         card.innerHTML = `
         <div class="card bg-base-100 shadow-xl">
-            <figure><img class="h-72" src="${cardData.thumbnail}" alt="Shoes" /></figure>
+            <div class="relative">
+                <figure><img class="h-72" src="${cardData.thumbnail}" alt="Shoes" /></figure>
+                <p class="absolute right-2 bottom-2 px-2 py-1 rounded-lg text-white bg-black">${time ? `${hour}hrs ${min} min ago` : ''}</p>
+            </div>
             <div class="card-body flex flex-row">
                 <img src="${cardData.authors[0].profile_picture}" class="w-10 h-10 rounded-full" alt="img">
                 <div>
                     <h2 class="card-title">${cardData.title}</h2>
                     <div class="flex flex-row">
                         <p>${cardData.authors[0].profile_name}</p>
-                        <p>${cardData.authors[0].verified ?'<img src="image/verified.svg"></img>':''}</p>
+                        <p>${cardData.authors[0].verified ? '<img src="image/verified.svg"></img>' : ''}</p>
                     </div>
                     <p>${cardData.others.views} views</p>
                 </div>
@@ -57,7 +69,13 @@ const showCard = async (category_id = 1000) => {
     `;
         cardContainer.appendChild(card);
     })
+
 }
+
+
+
+
+/* <p class="absolute right-0 bottom-0 bg-red-400 text-white">${hour ? hour:''}hrs ${min ? min:''} min ago</p> */
 
 showCard();
 phTube();
