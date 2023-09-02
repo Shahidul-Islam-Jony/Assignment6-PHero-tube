@@ -20,8 +20,6 @@ const tab = (data) => {
  const cardContainer = document.getElementById('card-container');
 
 const showCard = (categoryData) => {
-        console.log(categoryData);
-
     cardContainer.textContent = '';
 
     // no content handler
@@ -44,7 +42,7 @@ const showCard = (categoryData) => {
         // creating card
         const card = document.createElement('div');
         card.innerHTML = `
-        <div class="card bg-base-100 rounded-lg shadow-xl">
+        <div class="card bg-base-100 h-full rounded-lg shadow-xl">
             <div class="relative">
                 <figure><img class="h-72 rounded-lg" src="${cardData.thumbnail}" alt="Shoes" /></figure>
                 <p class="absolute right-2 bottom-2 px-2 py-1 rounded-lg text-white bg-black">${time ? `${hour}hrs ${min} min ago` : ''}</p>
@@ -71,7 +69,7 @@ const sortCardView = async(category_id = '1000') => {
     const data = await response.json();
     let categoryData = data.data;
      // Sort view
-    document.getElementById('sort-view').addEventListener('click',function(){
+    const sortBtn = document.getElementById('sort-view').addEventListener('click',function(){
         categoryData.sort((a, b) => parseInt(b.others.views) - parseInt(a.others.views));
         showCard(categoryData);
     })
@@ -80,7 +78,6 @@ const sortCardView = async(category_id = '1000') => {
 
 
 const defaultCardView = async (category_id = '1000') => {
-
     const response = await fetch(`https://openapi.programming-hero.com/api/videos/category/${category_id}`);
     const data = await response.json();
     let categoryData = data.data;
