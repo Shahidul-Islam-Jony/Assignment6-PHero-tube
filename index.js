@@ -9,15 +9,15 @@ const phTube = async () => {
 const tab = (data) => {
     const tabField = document.getElementById('tab');
     data.forEach(tab => {
-        const div = document.createElement('div');
-        div.innerHTML = `
-        <button onclick=defaultCardView('${tab.category_id}');sortCardView('${tab.category_id}') class='btn capitalize active:bg-red-500'>${tab.category}</button>
-    `;
-        tabField.appendChild(div);
+            const div = document.createElement('div');
+            div.innerHTML = `
+            <button onclick=defaultCardView('${tab.category_id}');sortCardView('${tab.category_id}') class='btn capitalize active:bg-red-500'>${tab.category}</button>
+        `;
+            tabField.appendChild(div);
     })
 }
 
- const cardContainer = document.getElementById('card-container');
+const cardContainer = document.getElementById('card-container');
 
 const showCard = (categoryData) => {
     cardContainer.textContent = '';
@@ -45,7 +45,7 @@ const showCard = (categoryData) => {
         <div class="card bg-base-100 h-full rounded-lg shadow-xl">
             <div class="relative">
                 <figure><img class="h-72 rounded-lg" src="${cardData.thumbnail}" alt="Shoes" /></figure>
-                <p class="absolute right-2 bottom-2 px-2 py-1 rounded-lg text-white bg-black">${time ? `${hour}hrs ${min} min ago` : ''}</p>
+                ${time? `<p class="absolute right-2 bottom-2 px-2 py-1 rounded-lg text-white bg-black">${hour}hrs ${min} min ago</p>`:''}
             </div>
             <div class="card-body flex flex-row">
                 <img src="${cardData.authors[0].profile_picture}" class="w-10 h-10 rounded-full" alt="img">
@@ -64,12 +64,12 @@ const showCard = (categoryData) => {
     })
 }
 
-const sortCardView = async(category_id = '1000') => {
+const sortCardView = async (category_id = '1000') => {
     const response = await fetch(`https://openapi.programming-hero.com/api/videos/category/${category_id}`);
     const data = await response.json();
     let categoryData = data.data;
-     // Sort view
-    const sortBtn = document.getElementById('sort-view').addEventListener('click',function(){
+    // Sort view
+    const sortBtn = document.getElementById('sort-view').addEventListener('click', function () {
         categoryData.sort((a, b) => parseInt(b.others.views) - parseInt(a.others.views));
         showCard(categoryData);
     })
