@@ -11,17 +11,16 @@ const tab = (data) => {
     data.forEach(tab => {
         const div = document.createElement('div');
         div.innerHTML = `
-        <button onclick=showCard('${tab.category_id}');getId('${tab.category_id}') class='btn capitalize active:bg-red-500'>${tab.category}</button>
+        <button onclick=defaultCardView('${tab.category_id}');sortCardView('${tab.category_id}') class='btn capitalize active:bg-red-500'>${tab.category}</button>
     `;
         tabField.appendChild(div);
     })
 }
 
-const showCard = async (category_id = '1000', sortBtnClicked = false) => {
-    const cardContainer = document.getElementById('card-container');
-    const response = await fetch(`https://openapi.programming-hero.com/api/videos/category/${category_id}`);
-    const data = await response.json();
-    let categoryData = data.data;
+ const cardContainer = document.getElementById('card-container');
+
+const showCard = (categoryData) => {
+        console.log(categoryData);
 
     cardContainer.textContent = '';
 
@@ -32,13 +31,6 @@ const showCard = async (category_id = '1000', sortBtnClicked = false) => {
     }
     else {
         noContent.classList.add('hidden');
-    }
-
-    // Sort view
-
-    if (sortBtnClicked) {
-        categoryData.sort((a, b) => parseInt(b.others.views) - parseInt(a.others.views));
-        // console.log(categoryData);
     }
 
     // content handler
@@ -74,16 +66,29 @@ const showCard = async (category_id = '1000', sortBtnClicked = false) => {
     })
 }
 
+const sortCardView = async(category_id = '1000') => {
+    const response = await fetch(`https://openapi.programming-hero.com/api/videos/category/${category_id}`);
+    const data = await response.json();
+    let categoryData = data.data;
+     // Sort view
+    document.getElementById('sort-view').addEventListener('click',function(){
+        categoryData.sort((a, b) => parseInt(b.others.views) - parseInt(a.others.views));
+        showCard(categoryData);
+    })
 
-const getId=(id='1000')=>{
-    if(document.getElementById('sort-view').addEventListener('click',function(){
-        showCard(id,true);
-        console.log('hi');
-    }));
-      
 }
-getId();
 
 
-showCard();
+const defaultCardView = async (category_id = '1000') => {
+
+    const response = await fetch(`https://openapi.programming-hero.com/api/videos/category/${category_id}`);
+    const data = await response.json();
+    let categoryData = data.data;
+    showCard(categoryData);
+
+}
+
+defaultCardView();
+sortCardView();
+
 phTube();
